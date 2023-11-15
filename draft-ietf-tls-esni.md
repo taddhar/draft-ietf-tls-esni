@@ -1216,12 +1216,20 @@ DNS results, if one is provided.
 
 ### Middleboxes
 
-When connecting through a TLS-terminating proxy that does not support this
-extension, {{RFC8446, Section 9.3}} requires the proxy still act as a
-conforming TLS client and server. The proxy must ignore unknown parameters, and
-generate its own ClientHello containing only parameters it understands. Thus,
-when presenting a certificate to the client or sending a ClientHello to the
-server, the proxy will act as if connecting to the ClientHelloOuter
+Middleboxes that are comforming to TLS1.3 specification will have the basis
+to ensure a good compatibility experience when handling a TLS1.3 communication
+with ECH extension.
+
+Indeed, when connecting through a TLS-terminating proxy that does not support
+this extension, {{RFC8446, Section 9.3}} requires the proxy still act as a
+conforming TLS client and server. 
+
+Compatibility with ECH extension will be provided with the proxy must ignoring
+unknown parameters, and generating its own ClientHello containing only
+parameters it understands. 
+
+Thus, when presenting a certificate to the client or sending a ClientHello
+to the server, the proxy will act as if connecting to the ClientHelloOuter
 server_name, which SHOULD match the public name (see {{real-ech}}), without
 echoing the "encrypted_client_hello" extension.
 
