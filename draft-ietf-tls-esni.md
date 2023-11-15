@@ -116,6 +116,27 @@ document are to be interpreted as described in BCP 14 {{RFC2119}} {{!RFC8174}}
 when, and only when, they appear in all capitals, as shown here. All TLS
 notation comes from {{RFC8446, Section 3}}.
 
+# Terminology
+
+The following terms are defined in **this** document:
+
+* Backend server: the origin server.
+
+* Client-Facing server: the entity trusted to update the ECH configuration.
+
+* ECH configuration: the structure containing the ECH metadata that the client
+needs to construct the Encrypted Client Hello message and engage TLS1.3 with
+the ECH extension.
+
+* ECH-service provider: a synonym for Client-Facing server.
+
+* public name: the DNS name of the client-facing server. It will be represented
+by the attribute 'public_name' which will be further defined later in the document.
+
+Note: depending on the context of the clauses of this document, either the term
+'public name' or the attribute 'public_name' will be used with the same meaning.
+
+
 # Overview
 
 This protocol is designed to operate in one of two topologies illustrated below,
@@ -139,9 +160,9 @@ Client <----->  | private.example.org |
 ~~~~
 {: #shared-mode title="Shared Mode Topology"}
 
-In Shared Mode, the provider is the origin server for all the domains whose DNS
-records point to it. In this mode, the TLS connection is terminated by the
-provider.
+In Shared Mode, the ECH-service provider is the origin server for all the
+domains whose DNS records point to it. In this mode, the TLS connection is
+terminated by the ECH-service provider.
 
 ~~~~
            +--------------------+     +---------------------+
@@ -155,10 +176,10 @@ Client <----------------------------->|                     |
 ~~~~
 {: #split-mode title="Split Mode Topology"}
 
-In Split Mode, the provider is not the origin server for private domains.
-Rather, the DNS records for private domains point to the provider, and the
-provider's server relays the connection back to the origin server, who
-terminates the TLS connection with the client. Importantly, the service provider
+In Split Mode, the ECH-service provider is not the origin server for private domains.
+Rather, the DNS records for private domains point to the ECH-service provider, and the
+ECH-service provider's server relays the connection back to the origin server, who
+terminates the TLS connection with the client. Importantly, the ECH-service provider
 does not have access to the plaintext of the connection beyond the unencrypted
 portions of the handshake.
 
